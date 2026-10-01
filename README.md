@@ -6,6 +6,10 @@ An evidence-led contract triage prototype: compare synthetic agreements with app
 
 The browser demo is plain HTML, CSS and JavaScript. It replays saved Python pipeline outputs entirely offline: no backend, build step, account or API key is needed.
 
+## About this release
+
+ContractDiff was originally developed in a private repository. This public version starts with a fresh Git history and includes the implementation, synthetic examples and tests. Private notes and assessment materials are excluded; the initial public commit is a release snapshot of that earlier work.
+
 ## Try it in five minutes
 
 Open [`prototype/index.html`](prototype/index.html) in a browser. Keep the repository's folder structure intact so its local scripts can load. Alternatively, serve it locally:
