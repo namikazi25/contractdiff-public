@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contractdiff.local/schemas/evaluation_result_v1.schema.json",
+  "title": "ContractDiff evaluation result v1",
+  "description": "One per-document evaluation record with typed issue, route and audit metrics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id",
+    "expected_contract_type",
+    "actual_contract_type",
+    "expected_findings",
+    "ai_hits",
+    "ai_misses",
+    "ai_false_alarms",
+    "baseline_hits",
+    "baseline_misses",
+    "baseline_false_alarms",
+    "union_hits",
+    "union_misses",
+    "union_false_alarms",
+    "expected_route",
+    "actual_route",
+    "route_correct",
+    "high_risk_miss",
+    "notes"
+  ],
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_contract_type": {
+      "$ref": "findings_v1.schema.json#/$defs/contractType"
+    },
+    "actual_contract_type": {
+      "$ref": "findings_v1.schema.json#/$defs/contractType"
+    },
+    "expected_findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/expectedFinding"
+      }
+    },
+    "ai_hits": {
+      "$ref": "#/$defs/issueList"
+    },
+    "ai_misses": {
+      "$ref": "#/$defs/issueList"
+    },
+    "ai_false_alarms": {
+      "$ref": "#/$defs/issueList"
+    },
+    "baseline_hits": {
+      "$ref": "#/$defs/issueList"
+    },
+    "baseline_misses": {
+      "$ref": "#/$defs/issueList"
+    },
+    "baseline_false_alarms": {
+      "$ref": "#/$defs/issueList"
+    },
+    "union_hits": {
+      "$ref": "#/$defs/issueList"
+    },
+    "union_misses": {
+      "$ref": "#/$defs/issueList"
+    },
+    "union_false_alarms": {
+      "$ref": "#/$defs/issueList"
+    },
+    "expected_route": {
+      "$ref": "#/$defs/route"
+    },
+    "actual_route": {
+      "$ref": "#/$defs/route"
+    },
+    "route_correct": {
+      "type": "boolean"
+    },
+    "high_risk_miss": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "unsupported_routed": {
+      "type": "boolean"
+    },
+    "duplicate_detected": {
+      "type": "boolean"
+    },
+    "validation_failure": {
+      "type": "boolean"
+    },
+    "ai_prompt_tokens": {
+      "$ref": "#/$defs/nullableNonNegativeInteger"
+    },
+    "ai_completion_tokens": {
+      "$ref": "#/$defs/nullableNonNegativeInteger"
+    },
+    "ai_total_tokens": {
+      "$ref": "#/$defs/nullableNonNegativeInteger"
+    },
+    "ai_wall_time_ms": {
+      "$ref": "#/$defs/nullableNonNegativeInteger"
+    },
+    "ai_cost_usd": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "baseline_wall_time_ms": {
+      "$ref": "#/$defs/nullableNonNegativeInteger"
+    }
+  },
+  "$defs": {
+    "nullableNonNegativeInteger": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "severity": {
+      "enum": ["low", "medium", "high"]
+    },
+    "route": {
+      "enum": [
+        "duplicate",
+        "quick_check",
+        "legal_review",
+        "senior_legal_review",
+        "manual_review"
+      ]
+    },
+    "issueList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "findings_v1.schema.json#/$defs/candidateIssue"
+      }
+    },
+    "expectedFinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_issue", "severity"],
+      "properties": {
+        "candidate_issue": {
+          "$ref": "findings_v1.schema.json#/$defs/candidateIssue"
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        }
+      }
+    }
+  }
+}

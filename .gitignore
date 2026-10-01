@@ -1,0 +1,28 @@
+# Local credentials and environments
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+
+# Python and test output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local/generated scratch output
+dist/
+results_run/
+.DS_Store
+~$*
+
+# Local editor and agent configuration
+.vscode/
+.idea/
+AGENTS.md
+CLAUDE.md
+
+# Opt-in live inference outputs
+live-results/

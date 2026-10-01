@@ -1,0 +1,25 @@
+{
+  "document_id": "NDA-003",
+  "expected_contract_type": "mutual_nda",
+  "actual_contract_type": "mutual_nda",
+  "expected_findings": [
+    {
+      "candidate_issue": "unlimited_liability",
+      "severity": "high"
+    }
+  ],
+  "ai_hits": ["unlimited_liability"],
+  "ai_misses": [],
+  "ai_false_alarms": [],
+  "baseline_hits": ["unlimited_liability"],
+  "baseline_misses": [],
+  "baseline_false_alarms": [],
+  "union_hits": ["unlimited_liability"],
+  "union_misses": [],
+  "union_false_alarms": [],
+  "expected_route": "senior_legal_review",
+  "actual_route": "senior_legal_review",
+  "route_correct": true,
+  "high_risk_miss": false,
+  "notes": "Both paths found the unlimited-liability issue."
+}

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Contract review queue · ContractDiff Demo</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="ContractDiff Demo queue">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="brand-copy">
+          <strong>ContractDiff</strong>
+          <small>Legal operations</small>
+        </span>
+      </a>
+      <nav class="primary-nav" aria-label="Prototype views">
+        <a href="index.html" data-app-nav="queue">Review queue</a>
+        <a href="index.html?view=evaluation" data-app-nav="evaluation">Evaluation</a>
+      </nav>
+      <div class="header-context">
+        <span class="environment-pill"><span aria-hidden="true"></span> Prototype</span>
+        <span class="header-divider" aria-hidden="true"></span>
+        <span class="team-name">Commercial legal</span>
+        <span class="avatar" aria-hidden="true">CL</span>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section id="queue-view" class="page-shell" aria-labelledby="queue-title">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Month-end review</p>
+            <h1 id="queue-title">Contract triage queue</h1>
+            <p class="lede">Prioritised contracts that need a legal decision, with AI and rules-based analysis side by side.</p>
+          </div>
+          <div class="as-of">
+            <span>Queue snapshot</span>
+            <strong>26 Aug 2026</strong>
+          </div>
+        </div>
+
+        <section class="summary-grid" aria-label="Queue summary">
+          <article class="summary-card summary-card--attention">
+            <div class="summary-icon" aria-hidden="true">!</div>
+            <div>
+              <span>Needs senior review</span>
+              <strong id="senior-count">—</strong>
+            </div>
+            <p>High-risk contracts</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-icon summary-icon--manual" aria-hidden="true">?</div>
+            <div>
+              <span>Manual triage</span>
+              <strong id="manual-count">—</strong>
+            </div>
+            <p>Unsupported formats</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-icon summary-icon--clear" aria-hidden="true">✓</div>
+            <div>
+              <span>Quick check</span>
+              <strong id="quick-count">—</strong>
+            </div>
+            <p>No material deviations</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-icon summary-icon--duplicate" aria-hidden="true">↗</div>
+            <div>
+              <span>Duplicates</span>
+              <strong id="duplicate-count">—</strong>
+            </div>
+            <p>Removed from review</p>
+          </article>
+        </section>
+
+        <section class="queue-panel" aria-labelledby="work-title">
+          <div class="queue-toolbar">
+            <div>
+              <div class="title-line">
+                <h2 id="work-title">Review work</h2>
+                <span id="queue-count" class="count-pill">— contracts</span>
+              </div>
+              <p>Highest risk first · click any contract to open its review</p>
+            </div>
+            <div class="source-note">
+              <span class="source-dot" aria-hidden="true"></span>
+              Offline snapshot
+            </div>
+          </div>
+
+          <div id="queue-error" class="error-banner" role="alert" hidden></div>
+
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Contract triage queue sorted with high-risk contracts first</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Document ID</th>
+                  <th scope="col">Counterparty</th>
+                  <th scope="col">Contract type</th>
+                  <th scope="col">Risk level</th>
+                  <th scope="col" class="numeric">Findings</th>
+                  <th scope="col">Highest severity</th>
+                  <th scope="col">Route</th>
+                  <th scope="col">Analysis status</th>
+                  <th scope="col">Duplicate status</th>
+                  <th scope="col">Analysis path</th>
+                  <th scope="col"><span class="sr-only">Open review</span></th>
+                </tr>
+              </thead>
+              <tbody id="queue-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <footer class="page-footer">
+          <span>Contract triage prototype</span>
+          <span>Decisions require human review</span>
+        </footer>
+      </section>
+
+      <section id="review-view" class="review-shell" aria-labelledby="review-title" hidden>
+        <div class="review-nav">
+          <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back to triage queue</a>
+          <span><span class="source-dot" aria-hidden="true"></span> Offline decision workspace</span>
+        </div>
+        <div id="review-content" data-review-screen></div>
+      </section>
+
+      <section id="evaluation-view" class="evaluation-shell" aria-labelledby="evaluation-title" hidden>
+        <div id="evaluation-content" data-evaluation-screen></div>
+      </section>
+    </main>
+
+    <noscript>This prototype needs JavaScript enabled to display the frozen contract data.</noscript>
+    <script src="data/contracts.js"></script>
+    <script src="data/templates.js"></script>
+    <script src="data/playbook.js"></script>
+    <script src="data/routing.js"></script>
+    <script src="data/evaluation.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

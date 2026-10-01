@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contractdiff.local/schemas/findings_v1.schema.json",
+  "title": "ContractDiff candidate findings v1",
+  "description": "Pre-enforcement output shared by the AI and baseline paths. Severity and route are deliberately not part of this contract.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "document_id",
+    "analysis_path",
+    "status",
+    "contract_type",
+    "template_id",
+    "playbook_id",
+    "findings",
+    "confidence",
+    "audit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "findings.v1"
+    },
+    "document_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "analysis_path": {
+      "enum": ["ai", "baseline"]
+    },
+    "status": {
+      "enum": ["completed", "analysis_failed"]
+    },
+    "contract_type": {
+      "$ref": "#/$defs/contractType"
+    },
+    "template_id": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "playbook_id": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "audit": {
+      "$ref": "analysis_meta_v1.schema.json"
+    }
+  },
+  "$defs": {
+    "contractType": {
+      "enum": ["mutual_nda", "order_form", "unknown"]
+    },
+    "clauseType": {
+      "enum": [
+        "parties",
+        "definitions",
+        "confidentiality_obligations",
+        "permitted_disclosures",
+        "term",
+        "termination",
+        "return_or_destruction",
+        "liability",
+        "indemnity",
+        "governing_law",
+        "assignment",
+        "publicity",
+        "payment_terms",
+        "renewal",
+        "notices",
+        "general"
+      ]
+    },
+    "candidateIssue": {
+      "enum": [
+        "unlimited_liability",
+        "liability_cap_changed",
+        "governing_law_changed",
+        "missing_termination_clause",
+        "missing_confidentiality_clause",
+        "missing_return_or_destruction_clause",
+        "non_standard_indemnity",
+        "assignment_changed",
+        "publicity_added",
+        "payment_terms_extended",
+        "auto_renewal_extended",
+        "liability_terms_changed",
+        "termination_rights_removed",
+        "non_standard_discount_or_credit",
+        "missing_clause",
+        "extra_clause",
+        "prompt_injection_detected"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "source_id", "quote", "start_char", "end_char"],
+      "properties": {
+        "source": {
+          "enum": ["contract", "template"]
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_char": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_char": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "document_id",
+        "clause_id",
+        "clause_type",
+        "candidate_issue",
+        "template_clause_id",
+        "evidence",
+        "summary",
+        "why_it_matters",
+        "suggested_redline",
+        "confidence"
+      ],
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "document_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clause_id": {
+          "description": "Null for findings about a clause that is absent from the contract.",
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "clause_type": {
+          "$ref": "#/$defs/clauseType"
+        },
+        "candidate_issue": {
+          "$ref": "#/$defs/candidateIssue"
+        },
+        "template_clause_id": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "why_it_matters": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_redline": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+Your previous response did not pass validation.
+
+Validation errors:
+$errors
+
+Return corrected raw JSON only. Do not explain the errors. Do not wrap the JSON in Markdown fencing.

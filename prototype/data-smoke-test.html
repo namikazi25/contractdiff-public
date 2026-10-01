@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ContractDiff browser data smoke test</title>
+  </head>
+  <body>
+    <main>
+      <h1>Browser data smoke test</h1>
+      <p id="status">Loading generated data…</p>
+    </main>
+    <script src="data/contracts.js"></script>
+    <script src="data/templates.js"></script>
+    <script src="data/playbook.js"></script>
+    <script src="data/expected_labels.js"></script>
+    <script src="data/model_outputs.js"></script>
+    <script src="data/baseline_outputs.js"></script>
+    <script src="data/routing.js"></script>
+    <script src="data/evaluation.js"></script>
+    <script>
+      const requiredKeys = [
+        "contracts",
+        "templates",
+        "playbook",
+        "expectedLabels",
+        "modelOutputs",
+        "baselineOutputs",
+        "routing",
+        "evaluation"
+      ];
+      const missing = requiredKeys.filter((key) => !(key in window.DATA));
+      const status = document.querySelector("#status");
+      if (missing.length) {
+        document.documentElement.dataset.smokeStatus = "failed";
+        status.textContent = `Missing data: ${missing.join(", ")}`;
+      } else {
+        document.documentElement.dataset.smokeStatus = "passed";
+        status.textContent = `Loaded ${requiredKeys.length} generated datasets offline.`;
+      }
+    </script>
+  </body>
+</html>
